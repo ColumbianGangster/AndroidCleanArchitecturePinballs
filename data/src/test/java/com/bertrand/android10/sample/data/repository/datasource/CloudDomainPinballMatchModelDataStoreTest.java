@@ -1,7 +1,7 @@
 
 package com.bertrand.android10.sample.data.repository.datasource;
 
-import com.bertrand.android10.sample.data.cache.UserCache;
+import com.bertrand.android10.sample.data.cache.PinballMatchCache;
 import com.bertrand.android10.sample.data.entity.PinballMatchEntity;
 import com.bertrand.android10.sample.data.net.RestApi;
 
@@ -24,11 +24,11 @@ public class CloudDomainPinballMatchModelDataStoreTest {
   private CloudUserDataStore cloudUserDataStore;
 
   @Mock private RestApi mockRestApi;
-  @Mock private UserCache mockUserCache;
+  @Mock private PinballMatchCache mockPinballMatchCache;
 
   @Before
   public void setUp() {
-    cloudUserDataStore = new CloudUserDataStore(mockRestApi, mockUserCache);
+    cloudUserDataStore = new CloudUserDataStore(mockRestApi, mockPinballMatchCache);
   }
 
   @Test

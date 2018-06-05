@@ -8,7 +8,7 @@ import io.reactivex.Observable;
 /**
  * An interface representing a user Cache.
  */
-public interface UserCache {
+public interface PinballMatchCache {
   /**
    * Gets an {@link Observable} which will emit a {@link PinballMatchEntity}.
    *

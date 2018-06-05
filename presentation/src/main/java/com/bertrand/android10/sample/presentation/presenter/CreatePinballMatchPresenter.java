@@ -3,7 +3,7 @@ package com.bertrand.android10.sample.presentation.presenter;
 import android.support.annotation.NonNull;
 
 import com.bertrand.android10.sample.domain.DomainPinballMatchModel;
-import com.bertrand.android10.sample.domain.interactor.CreatePinballMatch;
+import com.bertrand.android10.sample.domain.interactor.CreatePinballMatchUseCase;
 import com.bertrand.android10.sample.domain.interactor.DefaultObserver;
 import com.bertrand.android10.sample.presentation.internal.di.PerActivity;
 import com.bertrand.android10.sample.presentation.mapper.UserModelDataMapper;
@@ -13,12 +13,12 @@ import javax.inject.Inject;
 
 @PerActivity
 public class CreatePinballMatchPresenter implements Presenter {
-    private final CreatePinballMatch createPinballMatchUseCase;
+    private final CreatePinballMatchUseCase createPinballMatchUseCase;
     private final UserModelDataMapper userModelDataMapper;
     private CreatePinballView view;
 
     @Inject
-    public CreatePinballMatchPresenter(CreatePinballMatch createPinballMatchUseCase,
+    public CreatePinballMatchPresenter(CreatePinballMatchUseCase createPinballMatchUseCase,
                                 UserModelDataMapper userModelDataMapper) {
         this.createPinballMatchUseCase = createPinballMatchUseCase;
         this.userModelDataMapper = userModelDataMapper;
@@ -40,7 +40,9 @@ public class CreatePinballMatchPresenter implements Presenter {
 
     @Override
     public void destroy() {
-        this.createPinballMatchUseCase.dispose();
+        if(createPinballMatchUseCase != null) {
+            this.createPinballMatchUseCase.dispose();
+        }
         this.view = null;
     }
 
@@ -50,7 +52,6 @@ public class CreatePinballMatchPresenter implements Presenter {
     }
 
     private final class CreatePinballMatchObserver extends DefaultObserver<DomainPinballMatchModel> {
-
         @Override public void onError(Throwable e) {
 //            CreatePinballMatchPresenter.this.hideViewLoading();
 //            CreatePinballMatchPresenter.this.showErrorMessage(new DefaultErrorBundle((Exception) e));
@@ -63,7 +64,7 @@ public class CreatePinballMatchPresenter implements Presenter {
     }
 
     private void onPinballMatchCreated(DomainPinballMatchModel domainPinballMatchModel) {
-        if(view != null) {
+        if(view != null && view.isReady()) {
             view.onPinballMatchCreated(domainPinballMatchModel);
         }
     }

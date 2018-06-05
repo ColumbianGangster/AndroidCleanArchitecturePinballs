@@ -3,8 +3,8 @@ package com.bertrand.android10.sample.presentation.internal.di.modules;
 
 import android.content.Context;
 
-import com.bertrand.android10.sample.data.cache.UserCache;
-import com.bertrand.android10.sample.data.cache.UserCacheImpl;
+import com.bertrand.android10.sample.data.cache.PinballMatchCache;
+import com.bertrand.android10.sample.data.cache.PinballMatchCacheImpl;
 import com.bertrand.android10.sample.data.executor.JobExecutor;
 import com.bertrand.android10.sample.data.repository.PinballMatchDataRepository;
 import com.bertrand.android10.sample.domain.executor.PostExecutionThread;
@@ -43,7 +43,8 @@ public class ApplicationModule {
     return uiThread;
   }
 
-  @Provides @Singleton UserCache provideUserCache(UserCacheImpl userCache) {
+  @Provides @Singleton
+  PinballMatchCache provideUserCache(PinballMatchCacheImpl userCache) {
     return userCache;
   }
 

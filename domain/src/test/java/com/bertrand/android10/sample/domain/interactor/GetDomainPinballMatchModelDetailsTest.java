@@ -22,7 +22,7 @@ public class GetDomainPinballMatchModelDetailsTest {
 
     private static final String PINBALL_MATCH = "PINBALL_MATCH";
 
-    private CreatePinballMatch createPinballMatch;
+    private CreatePinballMatchUseCase createPinballMatchUseCase;
 
     @Mock
     private PinballMatchRepository mockPinballMatchRepository;
@@ -36,14 +36,14 @@ public class GetDomainPinballMatchModelDetailsTest {
 
     @Before
     public void setUp() {
-        createPinballMatch = new CreatePinballMatch(mockPinballMatchRepository, mockThreadExecutor,
+        createPinballMatchUseCase = new CreatePinballMatchUseCase(mockPinballMatchRepository, mockThreadExecutor,
                 mockPostExecutionThread);
     }
 
     @Test
     public void testGetUserDetailsUseCaseObservableHappyCase() {
-        createPinballMatch.setPinballMatch(PINBALL_MATCH);
-        createPinballMatch.buildUseCaseObservable();
+        createPinballMatchUseCase.setPinballMatch(PINBALL_MATCH);
+        createPinballMatchUseCase.buildUseCaseObservable();
 
         verify(mockPinballMatchRepository).createPinballMatch(PINBALL_MATCH);
         verifyNoMoreInteractions(mockPinballMatchRepository);
@@ -54,6 +54,6 @@ public class GetDomainPinballMatchModelDetailsTest {
     @Test
     public void testShouldFailWhenNoOrEmptyParameters() {
         expectedException.expect(IllegalStateException.class);
-        createPinballMatch.buildUseCaseObservable();
+        createPinballMatchUseCase.buildUseCaseObservable();
     }
 }

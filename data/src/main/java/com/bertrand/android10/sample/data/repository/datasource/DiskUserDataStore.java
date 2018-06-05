@@ -1,7 +1,7 @@
 
 package com.bertrand.android10.sample.data.repository.datasource;
 
-import com.bertrand.android10.sample.data.cache.UserCache;
+import com.bertrand.android10.sample.data.cache.PinballMatchCache;
 import com.bertrand.android10.sample.data.entity.PinballMatchEntity;
 
 import java.util.List;
@@ -13,15 +13,15 @@ import io.reactivex.Observable;
  */
 class DiskUserDataStore implements UserDataStore {
 
-  private final UserCache userCache;
+  private final PinballMatchCache pinballMatchCache;
 
   /**
    * Construct a {@link UserDataStore} based file system data store.
    *
-   * @param userCache A {@link UserCache} to cache data retrieved from the api.
+   * @param pinballMatchCache A {@link PinballMatchCache} to cache data retrieved from the api.
    */
-  DiskUserDataStore(UserCache userCache) {
-    this.userCache = userCache;
+  DiskUserDataStore(PinballMatchCache pinballMatchCache) {
+    this.pinballMatchCache = pinballMatchCache;
   }
 
   @Override public Observable<List<PinballMatchEntity>> userEntityList() {
@@ -30,6 +30,6 @@ class DiskUserDataStore implements UserDataStore {
   }
 
   @Override public Observable<PinballMatchEntity> userEntityDetails(final int userId) {
-     return this.userCache.get(userId);
+     return this.pinballMatchCache.get(userId);
   }
 }

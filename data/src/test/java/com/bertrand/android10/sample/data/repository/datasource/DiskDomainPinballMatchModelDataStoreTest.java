@@ -1,8 +1,7 @@
 
 package com.bertrand.android10.sample.data.repository.datasource;
 
-import com.bertrand.android10.sample.data.cache.UserCache;
-import com.bertrand.android10.sample.data.repository.datasource.DiskUserDataStore;
+import com.bertrand.android10.sample.data.cache.PinballMatchCache;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -21,13 +20,13 @@ public class DiskDomainPinballMatchModelDataStoreTest {
 
   private DiskUserDataStore diskUserDataStore;
 
-  @Mock private UserCache mockUserCache;
+  @Mock private PinballMatchCache mockPinballMatchCache;
 
   @Rule public ExpectedException expectedException = ExpectedException.none();
 
   @Before
   public void setUp() {
-    diskUserDataStore = new DiskUserDataStore(mockUserCache);
+    diskUserDataStore = new DiskUserDataStore(mockPinballMatchCache);
   }
 
   @Test
@@ -39,6 +38,6 @@ public class DiskDomainPinballMatchModelDataStoreTest {
   @Test
   public void testGetUserEntityDetailesFromCache() {
     diskUserDataStore.userEntityDetails(FAKE_USER_ID);
-    verify(mockUserCache).get(FAKE_USER_ID);
+    verify(mockPinballMatchCache).get(FAKE_USER_ID);
   }
 }

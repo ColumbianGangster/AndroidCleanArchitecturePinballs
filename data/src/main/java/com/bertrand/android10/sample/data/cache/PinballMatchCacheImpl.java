@@ -15,10 +15,10 @@ import javax.inject.Singleton;
 import io.reactivex.Observable;
 
 /**
- * {@link UserCache} implementation.
+ * {@link PinballMatchCache} implementation.
  */
 @Singleton
-public class UserCacheImpl implements UserCache {
+public class PinballMatchCacheImpl implements PinballMatchCache {
 
   private static final String SETTINGS_FILE_NAME = "com.bertrand.android10.SETTINGS";
   private static final String SETTINGS_KEY_LAST_CACHE_UPDATE = "last_cache_update";
@@ -33,14 +33,15 @@ public class UserCacheImpl implements UserCache {
   private final ThreadExecutor threadExecutor;
 
   /**
-   * Constructor of the class {@link UserCacheImpl}.
+   * Constructor of the class {@link PinballMatchCacheImpl}.
    *
    * @param context A
    * @param serializer {@link Serializer} for object serialization.
    * @param fileManager {@link FileManager} for saving serialized objects to the file system.
    */
-  @Inject UserCacheImpl(Context context, Serializer serializer,
-      FileManager fileManager, ThreadExecutor executor) {
+  @Inject
+  PinballMatchCacheImpl(Context context, Serializer serializer,
+                        FileManager fileManager, ThreadExecutor executor) {
     if (context == null || serializer == null || fileManager == null || executor == null) {
       throw new IllegalArgumentException("Invalid null parameter");
     }
@@ -53,10 +54,10 @@ public class UserCacheImpl implements UserCache {
 
   @Override public Observable<PinballMatchEntity> get(final int userId) {
     return Observable.create(emitter -> {
-      final File userEntityFile = UserCacheImpl.this.buildFile(userId);
-      final String fileContent = UserCacheImpl.this.fileManager.readFileContent(userEntityFile);
+      final File userEntityFile = PinballMatchCacheImpl.this.buildFile(userId);
+      final String fileContent = PinballMatchCacheImpl.this.fileManager.readFileContent(userEntityFile);
       final PinballMatchEntity pinballMatchEntity =
-          UserCacheImpl.this.serializer.deserialize(fileContent, PinballMatchEntity.class);
+          PinballMatchCacheImpl.this.serializer.deserialize(fileContent, PinballMatchEntity.class);
 
       if (pinballMatchEntity != null) {
         emitter.onNext(pinballMatchEntity);

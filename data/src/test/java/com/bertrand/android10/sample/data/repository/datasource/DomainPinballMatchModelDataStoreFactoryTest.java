@@ -2,7 +2,8 @@
 package com.bertrand.android10.sample.data.repository.datasource;
 
 import com.bertrand.android10.sample.data.ApplicationTestCase;
-import com.bertrand.android10.sample.data.cache.UserCache;
+import com.bertrand.android10.sample.data.cache.PinballMatchCache;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -21,37 +22,37 @@ public class DomainPinballMatchModelDataStoreFactoryTest extends ApplicationTest
 
   private PinballDataStoreFactory pinballDataStoreFactory;
 
-  @Mock private UserCache mockUserCache;
+  @Mock private PinballMatchCache mockPinballMatchCache;
 
   @Before
   public void setUp() {
-    pinballDataStoreFactory = new PinballDataStoreFactory(RuntimeEnvironment.application, mockUserCache);
+    pinballDataStoreFactory = new PinballDataStoreFactory(RuntimeEnvironment.application, mockPinballMatchCache);
   }
 
   @Test
   public void testCreateDiskDataStore() {
-    given(mockUserCache.isCached(FAKE_USER_ID)).willReturn(true);
-    given(mockUserCache.isExpired()).willReturn(false);
+    given(mockPinballMatchCache.isCached(FAKE_USER_ID)).willReturn(true);
+    given(mockPinballMatchCache.isExpired()).willReturn(false);
 
     UserDataStore userDataStore = pinballDataStoreFactory.create(FAKE_USER_ID);
 
     assertThat(userDataStore, is(notNullValue()));
     assertThat(userDataStore, is(instanceOf(DiskUserDataStore.class)));
 
-    verify(mockUserCache).isCached(FAKE_USER_ID);
-    verify(mockUserCache).isExpired();
+    verify(mockPinballMatchCache).isCached(FAKE_USER_ID);
+    verify(mockPinballMatchCache).isExpired();
   }
 
   @Test
   public void testCreateCloudDataStore() {
-    given(mockUserCache.isExpired()).willReturn(true);
-    given(mockUserCache.isCached(FAKE_USER_ID)).willReturn(false);
+    given(mockPinballMatchCache.isExpired()).willReturn(true);
+    given(mockPinballMatchCache.isCached(FAKE_USER_ID)).willReturn(false);
 
     UserDataStore userDataStore = pinballDataStoreFactory.create(FAKE_USER_ID);
 
     assertThat(userDataStore, is(notNullValue()));
     assertThat(userDataStore, is(instanceOf(CloudUserDataStore.class)));
 
-    verify(mockUserCache).isExpired();
+    verify(mockPinballMatchCache).isExpired();
   }
 }

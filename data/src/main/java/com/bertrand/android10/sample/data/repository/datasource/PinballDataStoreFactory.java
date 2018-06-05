@@ -4,7 +4,7 @@ package com.bertrand.android10.sample.data.repository.datasource;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.bertrand.android10.sample.data.cache.UserCache;
+import com.bertrand.android10.sample.data.cache.PinballMatchCache;
 import com.bertrand.android10.sample.data.entity.mapper.PinballMatchEntityJsonMapper;
 import com.bertrand.android10.sample.data.net.RestApi;
 import com.bertrand.android10.sample.data.net.RestApiImpl;
@@ -19,12 +19,12 @@ import javax.inject.Singleton;
 public class PinballDataStoreFactory {
 
   private final Context context;
-  private final UserCache userCache;
+  private final PinballMatchCache pinballMatchCache;
 
   @Inject
-  PinballDataStoreFactory(@NonNull Context context, @NonNull UserCache userCache) {
+  PinballDataStoreFactory(@NonNull Context context, @NonNull PinballMatchCache pinballMatchCache) {
     this.context = context.getApplicationContext();
-    this.userCache = userCache;
+    this.pinballMatchCache = pinballMatchCache;
   }
 
   /**
@@ -33,8 +33,8 @@ public class PinballDataStoreFactory {
   public UserDataStore create(int userId) {
     UserDataStore userDataStore;
 
-    if (!this.userCache.isExpired() && this.userCache.isCached(userId)) {
-      userDataStore = new DiskUserDataStore(this.userCache);
+    if (!this.pinballMatchCache.isExpired() && this.pinballMatchCache.isCached(userId)) {
+      userDataStore = new DiskUserDataStore(this.pinballMatchCache);
     } else {
       userDataStore = createCloudDataStore();
     }
@@ -49,6 +49,6 @@ public class PinballDataStoreFactory {
     final PinballMatchEntityJsonMapper pinballMatchEntityJsonMapper = new PinballMatchEntityJsonMapper();
     final RestApi restApi = new RestApiImpl(this.context, pinballMatchEntityJsonMapper);
 
-    return new CloudUserDataStore(restApi, this.userCache);
+    return new CloudUserDataStore(restApi, this.pinballMatchCache);
   }
 }

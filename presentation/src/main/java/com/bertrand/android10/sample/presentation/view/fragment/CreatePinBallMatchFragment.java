@@ -57,7 +57,7 @@ public class CreatePinBallMatchFragment extends BaseFragment implements CreatePi
 
     private void createPinBallMatch() {
         Editable text = createPinballMatchEditText.getText();
-        if(text != null && text.toString().trim().length() > 0) {
+        if(text != null) {
             this.presenter.createPinballMatch(text.toString());
         }
     }
@@ -91,5 +91,10 @@ public class CreatePinBallMatchFragment extends BaseFragment implements CreatePi
         if(domainPinballMatchModel != null) {
             pointsTotal.setText(Integer.toString(domainPinballMatchModel.getPinballMatchPointsTotal()));
         }
+    }
+
+    @Override
+    public boolean isReady() {
+        return isAdded();
     }
 }

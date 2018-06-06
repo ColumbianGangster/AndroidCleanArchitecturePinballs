@@ -14,6 +14,8 @@ Pros:
 * RxJava (I used a flatmap) to process the calculation of the pinball match point total
 * gradle3
 * Recyclerview / app compat. Coordinator layout to keep fab above keyboard
+* I put Null pointer checks in places, and used isAdded() in the fragment/presenter interaction, to show I appreciate defensive coding practices. :)
+
 
 Cons:
 * UI does not look good. I spent very little time on it.

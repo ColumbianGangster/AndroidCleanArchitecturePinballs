@@ -1,9 +1,5 @@
-
 package com.bertrand.android10.sample.domain;
 
-/**
- * Class that represents a DomainPinballMatchModel in the domain layer.
- */
 public class DomainPinballMatchModel {
 
   public DomainPinballMatchModel() {

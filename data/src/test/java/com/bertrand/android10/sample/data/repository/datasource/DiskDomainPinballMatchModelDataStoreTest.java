@@ -1,4 +1,3 @@
-
 package com.bertrand.android10.sample.data.repository.datasource;
 
 import com.bertrand.android10.sample.data.cache.PinballMatchCache;
@@ -16,28 +15,30 @@ import static org.mockito.Mockito.verify;
 @RunWith(MockitoJUnitRunner.class)
 public class DiskDomainPinballMatchModelDataStoreTest {
 
-  private static final int FAKE_USER_ID = 11;
+    private static final int FAKE_USER_ID = 11;
 
-  private DiskUserDataStore diskUserDataStore;
+    private DiskUserDataStore diskUserDataStore;
 
-  @Mock private PinballMatchCache mockPinballMatchCache;
+    @Mock
+    private PinballMatchCache mockPinballMatchCache;
 
-  @Rule public ExpectedException expectedException = ExpectedException.none();
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
 
-  @Before
-  public void setUp() {
-    diskUserDataStore = new DiskUserDataStore(mockPinballMatchCache);
-  }
+    @Before
+    public void setUp() {
+        diskUserDataStore = new DiskUserDataStore(mockPinballMatchCache);
+    }
 
-  @Test
-  public void testGetUserEntityListUnsupported() {
-    expectedException.expect(UnsupportedOperationException.class);
-    diskUserDataStore.userEntityList();
-  }
+    @Test
+    public void testGetUserEntityListUnsupported() {
+        expectedException.expect(UnsupportedOperationException.class);
+        diskUserDataStore.userEntityList();
+    }
 
-  @Test
-  public void testGetUserEntityDetailesFromCache() {
-    diskUserDataStore.userEntityDetails(FAKE_USER_ID);
-    verify(mockPinballMatchCache).get(FAKE_USER_ID);
-  }
+    @Test
+    public void testGetUserEntityDetailesFromCache() {
+        diskUserDataStore.userEntityDetails(FAKE_USER_ID);
+        verify(mockPinballMatchCache).get(FAKE_USER_ID);
+    }
 }

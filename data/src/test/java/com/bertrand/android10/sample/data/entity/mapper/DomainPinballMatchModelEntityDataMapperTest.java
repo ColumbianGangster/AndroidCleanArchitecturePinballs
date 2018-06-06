@@ -1,4 +1,3 @@
-
 package com.bertrand.android10.sample.data.entity.mapper;
 
 import com.bertrand.android10.sample.data.entity.PinballMatchEntity;

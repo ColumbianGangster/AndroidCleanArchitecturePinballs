@@ -1,6 +1,7 @@
 
 package com.bertrand.android10.sample.domain.interactor;
 
+import com.bertrand.android10.sample.domain.DomainPinballMatchModel;
 import com.bertrand.android10.sample.domain.executor.PostExecutionThread;
 import com.bertrand.android10.sample.domain.executor.ThreadExecutor;
 import com.bertrand.android10.sample.domain.repository.PinballMatchRepository;
@@ -13,9 +14,13 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import io.reactivex.Observable;
+
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.verifyZeroInteractions;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class GetDomainPinballMatchModelDetailsTest {
@@ -42,6 +47,9 @@ public class GetDomainPinballMatchModelDetailsTest {
 
     @Test
     public void testGetUserDetailsUseCaseObservableHappyCase() {
+        DomainPinballMatchModel mockPinballMatchModel = mock(DomainPinballMatchModel.class);
+        when(mockPinballMatchModel.getPinballMatch()).thenReturn(PINBALL_MATCH);
+        when(mockPinballMatchRepository.createPinballMatch(PINBALL_MATCH)).thenReturn(Observable.just(mockPinballMatchModel));
         createPinballMatchUseCase.setPinballMatch(PINBALL_MATCH);
         createPinballMatchUseCase.buildUseCaseObservable();
 

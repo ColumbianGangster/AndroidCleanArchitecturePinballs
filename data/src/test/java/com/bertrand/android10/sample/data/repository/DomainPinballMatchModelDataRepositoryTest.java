@@ -1,4 +1,3 @@
-
 package com.bertrand.android10.sample.data.repository;
 
 import com.bertrand.android10.sample.data.entity.PinballMatchEntity;

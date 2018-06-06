@@ -1,7 +1,4 @@
-
 package com.bertrand.android10.sample.data.exception;
-
-import com.bertrand.android10.sample.data.exception.RepositoryErrorBundle;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -14,20 +11,21 @@ import static org.mockito.Mockito.verify;
 @RunWith(MockitoJUnitRunner.class)
 public class RepositoryErrorBundleTest {
 
-  private RepositoryErrorBundle repositoryErrorBundle;
+    private RepositoryErrorBundle repositoryErrorBundle;
 
-  @Mock private Exception mockException;
+    @Mock
+    private Exception mockException;
 
-  @Before
-  public void setUp() {
-    repositoryErrorBundle = new RepositoryErrorBundle(mockException);
-  }
+    @Before
+    public void setUp() {
+        repositoryErrorBundle = new RepositoryErrorBundle(mockException);
+    }
 
-  @Test
-  @SuppressWarnings("ThrowableResultOfMethodCallIgnored")
-  public void testGetErrorMessageInteraction() {
-    repositoryErrorBundle.getErrorMessage();
+    @Test
+    @SuppressWarnings("ThrowableResultOfMethodCallIgnored")
+    public void testGetErrorMessageInteraction() {
+        repositoryErrorBundle.getErrorMessage();
 
-    verify(mockException).getMessage();
-  }
+        verify(mockException).getMessage();
+    }
 }
